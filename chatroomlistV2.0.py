@@ -94,19 +94,16 @@ class MyForm(wx.Frame):
          acqbtn=event.GetEventObject()
          acqbtn.Disable()
          saveButton.Enable()
-
     #保存用户选择的群聊记录在本地文件中，保存信息包括群聊NickName和Username
     def save(self,event):
-        savechatlist=[]
+        roomlist=''
         linenum=contents.GetNumberOfLines()
         for i in range(1,linenum):
             chatassign=contents.GetLineText(i)
             if chatroomlist.get(chatassign) is not None:
-                #savedict={chatassign:chatroomlist.get(chatassign)}
-                savechatlist.append(chatassign)
-        #将撤回消息写入文件
+                roomlist=roomlist+'\n'+chatassign
         with open(r'chatroomlist.txt' ,'w',encoding="utf8") as chatroomfile:
-             chatroomfile.write(str(savechatlist))
+             chatroomfile.write(roomlist)
         #os.getcwd()
         print("保存成功")
         contents.AppendText("保存成功\n保存目录为：%s \n" % os.getcwd())
