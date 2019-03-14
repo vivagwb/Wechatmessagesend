@@ -25,20 +25,10 @@ def  choose(self):
         dlg = wx.FileDialog(self,message="Choose a file",defaultFile="",wildcard=wildcard1,style=wx.FD_OPEN | wx.FD_CHANGE_DIR)
         if dlg.ShowModal() == wx.ID_OK:
 
-            #paths = dlg.GetPaths()
             paths = dlg.GetPaths()
-            #print "You chose the following file(s):"
-            #print(paths)
-            #for path in paths:
-
-                #tmp=tmp+path
+          
             tmp=paths[0]
-            #set the value of TextCtrl[filename]
-            #filename.SetValue(tmp)
-            #set the value to the TextCtrl[contents]
-            #file=open(filename.GetValue())
-            #file.close()
-            #contents.SetValue("已选取图片")
+           
         else:
             tmp=''
         dlg.Destroy()
@@ -118,7 +108,7 @@ class Threadsend(Thread):
                     print("搜索不到群聊")
                     wx.CallAfter(pub.sendMessage,'update',re_msg="%s：搜索失败"% chatroom)
                     searchfaillist.append(chatroom)
-                time.sleep(1)
+                time.sleep(0.5)
                 i+=1
                 if i == num:
                     print("执行完毕")
@@ -157,7 +147,7 @@ class Threadsend(Thread):
                     wx.CallAfter(pub.sendMessage,'update',re_msg="%s：搜索失败"% chatroom)
                     searchfaillist.append(chatroom)
 
-                time.sleep(1)
+                time.sleep(0.5)
                 i+=1
                 if i == num:
                     print("执行完毕")
@@ -185,7 +175,7 @@ class Threadsend(Thread):
                         print("搜索不到群聊")
                         wx.CallAfter(pub.sendMessage,'update',re_msg="%s：搜索失败"% chatroom)
                         searchfaillist.append(chatroom)
-                 time.sleep(1)
+                 time.sleep(0.5)
                  i+=1
                  if i == num:
                     print("执行完毕")
@@ -215,7 +205,7 @@ class Threadsend(Thread):
                     wx.CallAfter(pub.sendMessage,'update',re_msg="%s：搜索失败"% chatroom)
                     searchfaillist.append(chatroom)
 
-                time.sleep(1)
+                time.sleep(0.5)
                 i+=1
                 if i == num:
                     print("执行完毕")
@@ -246,7 +236,7 @@ class Threadsend(Thread):
                     wx.CallAfter(pub.sendMessage,'update',re_msg="%s：搜索失败"% chatroom)
                     searchfaillist.append(chatroom)
 
-                time.sleep(1)
+                time.sleep(0.5)
                 i+=1
                 if i == num:
                     print("执行完毕")
@@ -347,14 +337,14 @@ class MyForm(wx.Frame):
            print(tmp)
            filetext.SetValue(chatlistfilepath)
            try:
-               chatlist=ast.literal_eval(get_file_content(chatlistfilepath))
+               chatlist=get_file_content(chatlistfilepath).split('\n')
                print("以下为获取的群发列表\n\n")
                contents.AppendText("以下为获取的群发列表\n\n")
                print(chatlist)
-               for index,chatroom in enumerate(chatlist):
-                    contents.AppendText('%s : %s \n'%(index+1,chatroom))
-               print("请点击登录微信\n\n")
-               contents.AppendText("请点击登录微信\n\n")
+               for index,chatroom in enumerate(open(chatlistfilepath,encoding='utf-8')):
+                   contents.AppendText('%s : %s \n'%(index+1,chatroom))
+               print("已经选择群列表，请点击登录微信\n\n")
+               contents.AppendText("已经选择群列表，请点击登录微信\n\n")
            except:
                print("群聊列表文件不符合规范，请重新生成")
                contents.AppendText("群聊列表文件不符合规范，请重新生成\n")
