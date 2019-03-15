@@ -2,11 +2,13 @@
 
 # coding:utf-8
 #v1.1 支持获取群列表并选择需要保存的群列表写入本地文件中
+#v2.0 修改了群列表在本地保存格式
 
 import itchat
 import wx
 from threading import Thread
-from wx.lib.pubsub import pub
+from pubsub import pub
+#from wx.lib.pubsub import pub
 import time
 import os
 
