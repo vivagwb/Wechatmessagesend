@@ -98,7 +98,7 @@ class Threadsend(Thread):
 
                 if itchat.search_chatrooms(chatroom) != []:
                     chatroomusername = itchat.search_chatrooms(chatroom)[0]['UserName']
-                    sendre = itchat.send_file(message, toUserName=chatroomusername)
+                    sendre = itchat.send("@fil@%s"% message, toUserName=chatroomusername)
                     if sendre['BaseResponse']['ErrMsg'] == "请求成功":
                         print("%s：发送成功" % chatroom)
                         wx.CallAfter(pub.sendMessage, 'update', re_msg="%s：发送成功" % chatroom)
